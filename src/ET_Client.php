@@ -509,17 +509,18 @@ class ET_Client extends SoapClient
 		
 		return curl_getinfo($curl, CURLINFO_FILETIME);
 	}
+
 	/**
 	 * Perfoms an soap request.
 	 *
-	 * @param string $request Soap request xml 
+	 * @param string $request Soap request xml
 	 * @param string $location Url as string
-	 * @param string $saction Soap action name
-	 * @param string $version Future use
-	 * @param integer $one_way Future use
-	 * @return string Soap web service request result
-	 */			
-	function __doRequest($request, $location, $saction, $version, $one_way = 0) 
+	 * @param string $action Soap action name
+	 * @param integer $version Future use
+	 * @param bool $oneWay Future use
+	 * @return string|null Soap web service request result
+	 */
+	function __doRequest(string $request, string $location, string $action, int $version, bool $oneWay = false): ?string
 	{
 		$doc = new DOMDocument();
 		$doc->loadXML($request);
@@ -541,7 +542,7 @@ class ET_Client extends SoapClient
 			error_log (str_replace($this->getInternalAuthToken($this->tenantKey),"REMOVED",$content));
 		}
 		
-		$headers = array("Content-Type: text/xml","SOAPAction: ".$saction, "User-Agent: ".ET_Util::getSDKVersion());
+		$headers = array("Content-Type: text/xml","SOAPAction: ".$action, "User-Agent: ".ET_Util::getSDKVersion());
 
 		$ch = curl_init();
 		curl_setopt ($ch, CURLOPT_URL, $location);
@@ -642,7 +643,7 @@ class ET_Client extends SoapClient
 	function getAuthTokenExpiration($tenantKey) 
 	{
 		$tenantKey = $tenantKey == null ? $this->tenantKey : $tenantKey;
-		if ($this->tenantTokens[$tenantKey] == null) {
+		if (!isset($this->tenantTokens[$tenantKey]) || $this->tenantTokens[$tenantKey] == null) {
 			$this->tenantTokens[$tenantKey] = array();
 		}
 		return isset($this->tenantTokens[$tenantKey]['authTokenExpiration'])

@@ -5,6 +5,9 @@ Salesforce Marketing Cloud Fuel SDK for PHP
 
 > Salesforce Marketing Cloud Fuel SDK for PHP is free to use but are not official Salesforce Marketing Cloud products and should be considered community projects. This SDK is not officially tested or documented. For help on any Salesforce Marketing Cloud Fuel SDK for PHP, please consult the Salesforce message boards or the issues section of this repository. Salesforce Marketing Cloud support is not available for this SDK.
 
+## Purpose of fork
+_12/5/2023_ - [salesforce-mc/fuel-sdk-php](https://github.com/salesforce-marketingcloud/FuelSDK-PHP) is not compatible with PHP 8.1. This fork addresses compatibility issues required for Magento.
+
 ## Overview ##
 The Fuel SDK for PHP provides easy access to Salesforce Marketic Cloud's Fuel API Family services, including a collection of REST and SOAP API. These APIs provide access to Salesforce Marketing Cloud (previously called ExactTarget) functionality via common collection types such as array/hash. 
 
