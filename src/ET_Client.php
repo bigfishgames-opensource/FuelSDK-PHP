@@ -101,7 +101,8 @@ class ET_Client extends SoapClient
 		$tenantTokens = array();
 		$config = false;
 
-		$this->xmlLoc = 'ExactTargetWSDL.xml';
+		$wsdlName = 'ExactTargetWSDL.xml';
+		$this->xmlLoc = array_key_exists('wsdlpath', $params) ? sprintf("%s/%s", $params['wsdlpath'], $wsdlName) : $wsdlName;
 
 		if (file_exists(realpath("config.php")))
 			$config = include 'config.php';
